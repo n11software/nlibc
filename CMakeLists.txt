@@ -1,6 +1,17 @@
 cmake_minimum_required(VERSION 3.10)
 project(nlibc C CXX ASM)
 
+set(CMAKE_C_COMPILER_WORKS 1)
+set(CMAKE_CXX_COMPILER_WORKS 1)
+
+SET(CMAKE_SYSTEM_NAME Generic)
+
+SET(CMAKE_SYSTEM_PROCESSOR x86_64)
+SET(CMAKE_CROSSCOMPILING 1)
+
+set(CMAKE_C_COMPILER "x86_64-hydra-gcc")
+set(CMAKE_CXX_COMPILER "x86_64-hydra-g++")
+
 # Specify the freestanding environment
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -nostdlib -ffreestanding -Wno-builtin-declaration-mismatch -I${CMAKE_SOURCE_DIR}/include")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -nostdlib -ffreestanding -Wno-builtin-declaration-mismatch -I${CMAKE_SOURCE_DIR}/include")
@@ -19,7 +30,7 @@ file(GLOB_RECURSE LIBC_HEADERS include/*.h)
 add_library(crt0 STATIC crt0.s)
 add_library(crti STATIC crti.s)
 add_library(crtn STATIC crtn.s)
-add_library(C SHARED ${LIBC_SOURCES})
+add_library(C STATIC ${LIBC_SOURCES})
 
 # Set properties
 set_target_properties(C PROPERTIES PUBLIC_HEADER "${LIBC_HEADERS}")

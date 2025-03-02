@@ -1,5 +1,7 @@
 #include <stdint.h>
 #include <stddef.h>
+#include <unistd.h>
+#include <sys/types.h>
 
 static inline long
 syscall(long num, long arg1, long arg2, long arg3)

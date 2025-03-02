@@ -68,4 +68,6 @@ void *sbrk(intptr_t increment);
 #define O_DIRECTORY 00200000
 #define O_NOFOLLOW 00400000
 
+ssize_t write(int fd, const void *buf, size_t count);
+
 __END_DECLS

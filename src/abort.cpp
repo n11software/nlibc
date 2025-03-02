@@ -10,5 +10,5 @@ void abort(void) {
 	printf("abort()\n");
 #endif
 	while (1) {}
-	__builtin_unreachable();	
+	__builtin_unreachable();
 }
