@@ -9,15 +9,16 @@ SET(CMAKE_SYSTEM_NAME Generic)
 SET(CMAKE_SYSTEM_PROCESSOR x86_64)
 SET(CMAKE_CROSSCOMPILING 1)
 
+enable_language(ASM)
 set(CMAKE_C_COMPILER "x86_64-hydra-gcc")
 set(CMAKE_CXX_COMPILER "x86_64-hydra-g++")
+set(CMAKE_ASM_COMPILER "x86_64-hydra-gcc")
 
 # Specify the freestanding environment
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -nostdlib -ffreestanding -Wno-builtin-declaration-mismatch -I${CMAKE_SOURCE_DIR}/include")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -nostdlib -ffreestanding -Wno-builtin-declaration-mismatch -I${CMAKE_SOURCE_DIR}/include")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -nostdlib")
 
-enable_language(ASM)
 
 # Include your custom headers directory
 include_directories(BEFORE ${CMAKE_SOURCE_DIR}/include)

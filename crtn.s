@@ -1,7 +1,7 @@
-.section .init
-	pop %rax
-	ret
+.section ".init"
+    popq %rax
+    ret
 
-.section .fini
-	pop %rax
-	ret
+.section ".fini"
+    popq %rax
+    ret
