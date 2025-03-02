@@ -10,10 +10,7 @@ __BEGIN_DECLS
 uid_t getuid();
 gid_t getgid();
 pid_t getpid();
-int open(const char* path, int options);
-ssize_t read(int fd, void* buf, size_t count);
-ssize_t write(int fd, const void* buf, size_t count);
-int close(int fd);
+
 pid_t waitpid(pid_t, int* wstatus, int options);
 int chdir(const char* path);
 char* getcwd(char* buffer, size_t size);
@@ -68,6 +65,9 @@ void *sbrk(intptr_t increment);
 #define O_DIRECTORY 00200000
 #define O_NOFOLLOW 00400000
 
+int open(const char *pathname, int flags, mode_t mode);
+ssize_t read(int fd, void *buf, size_t count);
 ssize_t write(int fd, const void *buf, size_t count);
+int close(int fd);
 
 __END_DECLS

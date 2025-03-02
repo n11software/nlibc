@@ -1,6 +1,8 @@
+#include <fcntl.h>
 #include <stdint.h>
 #include <stddef.h>
 #include <unistd.h>
+#include <sys/syscall.h>
 #include <sys/types.h>
 
 static inline long
@@ -19,10 +21,28 @@ syscall(long num, long arg1, long arg2, long arg3)
 	return ret;
 }
 
+int
+open(const char *pathname, int flags, mode_t mode)
+{
+	return (int) syscall(SYS_OPEN, (long) pathname, flags, mode);
+}
+
+ssize_t
+read(int fd, void *buf, size_t count)
+{
+	return (ssize_t) syscall(SYS_READ, fd, (long) buf, count);
+}
+
 ssize_t
 write(int fd, const void *buf, size_t count)
 {
 	return(1, fd, (long)buf, count);
+}
+
+int
+close(int fd)
+{
+	return (int) syscall(SYS_CLOSE, fd, 0, 0);
 }
 
 void*
