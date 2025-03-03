@@ -28,13 +28,31 @@ file(GLOB_RECURSE LIBC_SOURCES src/*.cpp)
 file(GLOB_RECURSE LIBC_HEADERS include/*.h)
 
 # Add libraries
-add_library(crt0 STATIC crt0.s)
-add_library(crti STATIC crti.s)
-add_library(crtn STATIC crtn.s)
-add_library(C STATIC ${LIBC_SOURCES})
+add_library(c STATIC ${LIBC_SOURCES})
+
+# Specify the CRT startup assembly files
+set(CRT_SOURCES
+    crt0.s
+    crti.s
+    crtn.s
+)
+
+# Compile each assembly file separately
+foreach(SRC ${CRT_SOURCES})
+    get_filename_component(OBJ_NAME ${SRC} NAME_WE)
+    add_custom_command(
+        OUTPUT ${CMAKE_BINARY_DIR}/${OBJ_NAME}.o
+        COMMAND ${CMAKE_ASM_COMPILER} -c ${CMAKE_SOURCE_DIR}/${SRC} -o ${CMAKE_BINARY_DIR}/${OBJ_NAME}.o
+        DEPENDS ${SRC}
+    )
+    list(APPEND CRT_OBJECTS ${CMAKE_BINARY_DIR}/${OBJ_NAME}.o)
+endforeach()
+
+# Create a target that ensures the object files get built
+add_custom_target(crt_objs ALL DEPENDS ${CRT_OBJECTS})
 
 # Set properties
-set_target_properties(C PROPERTIES PUBLIC_HEADER "${LIBC_HEADERS}")
+set_target_properties(c PROPERTIES PUBLIC_HEADER "${LIBC_HEADERS}")
 
 # Install rules
-install(TARGETS C LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
+install(TARGETS c LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})

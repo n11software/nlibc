@@ -6,17 +6,21 @@
 
 #pragma once
 
-#ifndef KERNEL
+#ifndef _STDDEF_H
+#define _STDDEF_H
 
-#    include "sys/cdefs.h"
-
-#    ifdef __cplusplus
-#        define NULL nullptr
-#    else
-#        define NULL ((void*)0)
-#    endif
-
+typedef __SIZE_TYPE__    size_t;
 typedef __PTRDIFF_TYPE__ ptrdiff_t;
-typedef __SIZE_TYPE__ size_t;
+typedef long             ssize_t;
+typedef unsigned int     time_t;
+typedef long             suseconds_t;
 
+#ifdef __cplusplus
+#define NULL 0
+#else
+#define NULL ((void*)0)
 #endif
+
+#define offsetof(type, member) __builtin_offsetof(type, member)
+
+#endif /* _STDDEF_H */

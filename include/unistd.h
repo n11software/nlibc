@@ -16,13 +16,14 @@ int chdir(const char* path);
 char* getcwd(char* buffer, size_t size);
 int lstat(const char* path, struct stat* statbuf);
 int sleep(unsigned seconds);
-int gethostname(char*, size_t);
+int gethostname(char*, int);
 ssize_t readlink(const char* path, char* buffer, size_t);
 char* ttyname(int fd);
 int ttyname_r(int fd, char* buffer, size_t);
 
 int brk(void *addr);
 void *sbrk(intptr_t increment);
+extern void _exit(int status);  // Add declaration for _exit
 
 #define WEXITSTATUS(status) (((status)&0xff00) >> 8)
 #define WTERMSIG(status) ((status)&0x7f)
@@ -69,5 +70,13 @@ int open(const char *pathname, int flags, mode_t mode);
 ssize_t read(int fd, void *buf, size_t count);
 ssize_t write(int fd, const void *buf, size_t count);
 int close(int fd);
+
+#define STDIN_FILENO 0
+#define STDOUT_FILENO 1
+#define STDERR_FILENO 2
+
+int getopt(int argc, char* const argv[], const char* optstring);
+extern char* optarg;
+extern int optind, opterr, optopt;
 
 __END_DECLS

@@ -2,6 +2,11 @@
 
 #include <sys/types.h>
 
+typedef int clockid_t;
+
+#define CLOCK_REALTIME  0
+#define CLOCK_MONOTONIC 1
+
 struct tm {
     /*
      * the number of seconds after the minute, normally in the range
@@ -26,10 +31,13 @@ struct tm {
 
 struct timespec {
     time_t tv_sec;
-    long tv_nsec
+    long tv_nsec;
 };
 
 struct itimerval {
     struct timespec it_interval;
     struct timespec it_value;
 };
+
+time_t time(time_t* tloc);
+int clock_gettime(clockid_t clk_id, struct timespec *tp);

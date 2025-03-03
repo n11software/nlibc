@@ -1,27 +1,30 @@
-	.text
-	.align 4
+.section .text
 
-	.globl _start
+.global _start
 _start:
-	subq $8, %rsp
-	pushq %rcx
-	pushq %rdx
+	movq $0, %rbp
+	pushq %rbp # rip=0
+	pushq %rbp # rbp=0
+	movq %rsp, %rbp
 
-0:
-	lea ImageBase(%rip), %rdi
-	lea _DYNAMIC(%rip), %rsi
+	# We need those in a moment when we call main.
+	pushq %rsi
+	pushq %rdi
 
-	popq %rcx
-	popq %rdx
-	pushq %rcx
-	pushq %rdx
-	call _relocate
+	# Prepare signals, memory allocation, stdio and such.
+	call initialize_standard_library
 
+	# Run the global constructors.
+	call _init
+
+	# Restore argc and argv.
 	popq %rdi
 	popq %rsi
 
-	call efi_main
-	addq $8, %rsp
+	# Run main
+	call main
 
-.exit:	
-  	ret
+	# Terminate the process with the exit code.
+	movl %eax, %edi
+	call exit
+.size _start, . - _start

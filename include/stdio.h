@@ -4,9 +4,7 @@
 
 __BEGIN_DECLS
 
-#ifndef EOF
-#    define EOF (-1)
-#endif
+#define EOF (-1)
 
 struct __STDIO_FILE {
     int fd;
@@ -23,6 +21,10 @@ int printf(const char* fmt, ...);
 int sprintf(char* buffer, const char* fmt, ...);
 int putchar(int ch);
 void perror(const char*);
+
+FILE* fopen(const char* filename, const char* mode);
+int fgetc(FILE* stream);
+int fclose(FILE* stream);
 
 #ifndef SEEK_SET
 #define	SEEK_SET	0	/* set file offset to offset */
