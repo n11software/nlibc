@@ -3,6 +3,7 @@
 #include <sys/cdefs.h>
 #include <sys/types.h>
 
+#include <stddef.h>
 #include <stdint.h>
 
 __BEGIN_DECLS
