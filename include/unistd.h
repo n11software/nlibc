@@ -1,5 +1,6 @@
 #pragma once
 
+#include <stddef.h>
 #include <sys/cdefs.h>
 #include <sys/types.h>
 
@@ -17,7 +18,7 @@ char* getcwd(char* buffer, size_t size);
 int lstat(const char* path, struct stat* statbuf);
 int sleep(unsigned seconds);
 int gethostname(char*, int);
-ssize_t readlink(const char* path, char* buffer, size_t);
+int64_t readlink(const char* path, char* buffer, size_t);
 char* ttyname(int fd);
 int ttyname_r(int fd, char* buffer, size_t);
 
@@ -67,8 +68,8 @@ extern void _exit(int status);  // Add declaration for _exit
 #define O_NOFOLLOW 00400000
 
 int open(const char *pathname, int flags, mode_t mode);
-ssize_t read(int fd, void *buf, size_t count);
-ssize_t write(int fd, const void *buf, size_t count);
+int64_t read(int fd, void *buf, size_t count);
+int64_t write(int fd, const void *buf, size_t count);
 int close(int fd);
 
 #define STDIN_FILENO 0

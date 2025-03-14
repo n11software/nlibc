@@ -3,8 +3,8 @@
 #include <stddef.h>
 
 struct timeval {
-    time_t      tv_sec;     /* seconds */
-    suseconds_t tv_usec;    /* microseconds */
+    unsigned int     tv_sec;     /* seconds */
+    long tv_usec;    /* microseconds */
 };
 
 struct timezone {

@@ -4,15 +4,15 @@
  * SPDX-License-Identifier: MIT
  */
 
-#pragma once
+#include <stdint.h>
 
 #ifndef _STDDEF_H
 #define _STDDEF_H
 
+typedef int64_t 	 ssize_t;
 typedef __SIZE_TYPE__    size_t;
 typedef __PTRDIFF_TYPE__ ptrdiff_t;
 typedef long             ssize_t;
-typedef unsigned int     time_t;
 typedef long             suseconds_t;
 
 #ifdef __cplusplus
