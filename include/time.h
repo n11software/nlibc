@@ -2,6 +2,7 @@
 
 #include <stddef.h>
 #include <sys/types.h>
+#include <stddef.h>
 
 typedef int clockid_t;
 
