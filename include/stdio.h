@@ -1,6 +1,7 @@
 #pragma once
 
 #include <sys/cdefs.h>
+#include <sys/types.h>
 
 __BEGIN_DECLS
 
@@ -25,6 +26,16 @@ void perror(const char*);
 FILE* fopen(const char* filename, const char* mode);
 int fgetc(FILE* stream);
 int fclose(FILE* stream);
+
+int fputc(int c, FILE* stream);
+int putc(int c, FILE* stream);
+int putchar(int c);
+
+int fputs(const char* s, FILE* stream);
+int puts(const char* s);
+
+int fread(void* ptr, size_t size, size_t nmemb, FILE* stream);
+int fwrite(const void* ptr, size_t size, size_t nmemb, FILE* stream);
 
 #ifndef SEEK_SET
 #define	SEEK_SET	0	/* set file offset to offset */

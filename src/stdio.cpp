@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include <fcntl.h>  // Include for O_* constants
 #include <unistd.h>  // Include for close, read, open
 #include <stdlib.h>
@@ -61,4 +62,12 @@ int fclose(FILE* stream) {
 
 int putchar(int ch) {
     return write(STDOUT_FILENO, &ch, 1) == 1 ? ch : EOF;
+}
+
+int puts(const char* s) {
+	return write(STDOUT_FILENO, s, strlen(s)) == strlen(s) ? 0 : EOF;
+}
+
+int fputs(const char* s, FILE* stream) {
+	return write(stream->fd, s, strlen(s)) == strlen(s) ? 0 : EOF;
 }
